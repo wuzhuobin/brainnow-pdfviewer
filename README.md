@@ -1,3 +1,7 @@
+# Brainnow PDFViewer
+
+[![CircleCI](https://circleci.com/gh/wuzhuobin/brainnow-pdfviewer.svg?style=svg)](https://circleci.com/gh/wuzhuobin/brainnow-pdfviewer)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
