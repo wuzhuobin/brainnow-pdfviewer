@@ -23,7 +23,8 @@ export default class BrainnowPDFViewer extends React.Component {
   render() {
     const columns = [{
       title: 'img',
-      dataIndex: 'img'
+      dataIndex: 'img',
+      align: 'center'
     }];
     const dataSource = this.props.imgs.map((value, index) => {
       return {
