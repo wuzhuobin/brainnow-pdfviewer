@@ -7,6 +7,10 @@
     width: 50vw;
     height: 91vh;
   }
+
+  .slider {
+    height: 91vh;
+  }
   
   .logoImg {
     height: 40px;

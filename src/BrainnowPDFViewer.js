@@ -4,9 +4,9 @@ import 'antd/dist/antd.css';
 import BrainnowIcon from './asset/brainnow-icon.svg';
 import { PageHeader } from 'antd';
 import { Button } from 'antd';
-import { Table } from 'antd';
 import { Row } from 'antd';
 import { Col } from 'antd';
+import { Slider} from 'antd';
 
 const BUTTON_TEXT_en_us = 'Chinese/中文';
 const BUTTON_TEXT_zh_cn = 'English/英文';
@@ -16,23 +16,14 @@ export default class BrainnowPDFViewer extends React.Component {
     super(props);
     this.state = {
       buttonText: BUTTON_TEXT_en_us,
-      pdf: this.props.pdf_en_us
+      pdf: this.props.pdf_en_us,
+      imgIndex: 0
     };
-    console.log(this.state);
+    this.onClickListener = this.onClickListener.bind(this);
+    this.onSliderChangeListener = this.onSliderChangeListener.bind(this);
+    this.onWheelListener = this.onWheelListener.bind(this);
   }
   render() {
-    const columns = [{
-      title: 'img',
-      dataIndex: 'img',
-      align: 'center'
-    }];
-    const dataSource = this.props.imgs.map((value, index) => {
-      return {
-        key: index,
-        img: <img src={value} alt="logo" onContextMenu={e => e.preventDefault()}></img>
-      };
-    });
-
     return (
       <div className="App">
         <PageHeader title={<img src={BrainnowIcon} alt="BrainnowIcon" className="logoImg"></img>}
@@ -41,12 +32,25 @@ export default class BrainnowPDFViewer extends React.Component {
         </PageHeader>
         <Row type="flex">
           <Col span={12}><embed className="PDFViewer" src={this.state.pdf} type="application/pdf"></embed></Col>
-          <Col span={12}>
-            <Table className="JPGViewer" showHeader={false} pagination={false} columns={columns} dataSource={dataSource} scroll={{ y: '91vh' }}></Table>
+          <Col span={11} onWheel={this.onWheelListener}>
+            <img src={this.props.imgs[this.state.imgIndex]} height="100%"></img>
           </Col>
+          <Col span={1} className='slider'><Slider vertical value={this.state.imgIndex} onChange={this.onSliderChangeListener} min={0} max={this.props.imgs.length - 1}></Slider></Col>
         </Row>
       </div>
     );
+  }
+
+  onSliderChangeListener(value) {
+    this.setState({imgIndex: value});
+  }
+
+  onWheelListener(event) {
+    let newIndex = this.state.imgIndex;
+    newIndex = (event.deltaY > 0) ? newIndex + 1 : newIndex - 1;
+    newIndex = Math.min(this.props.imgs.length - 1, newIndex);
+    newIndex = Math.max(0, newIndex);
+    this.setState({imgIndex: newIndex});
   }
 
   onClickListener() {
