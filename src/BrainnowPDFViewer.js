@@ -33,7 +33,7 @@ export default class BrainnowPDFViewer extends React.Component {
         <Row type="flex">
           <Col span={12}><embed className="PDFViewer" src={this.state.pdf} type="application/pdf"></embed></Col>
           <Col span={11} onWheel={this.onWheelListener}>
-            <img src={this.props.imgs[this.state.imgIndex]} height="100%"></img>
+            <img src={this.props.imgs[this.state.imgIndex]} alt="sample" height="100%"></img>
           </Col>
           <Col span={1} className='slider'><Slider vertical value={this.state.imgIndex} onChange={this.onSliderChangeListener} min={0} max={this.props.imgs.length - 1}></Slider></Col>
         </Row>
